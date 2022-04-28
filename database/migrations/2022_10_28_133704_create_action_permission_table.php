@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CreateActionPermissionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('action_permission', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100);
+            $table->foreignId('action_id')->constrained();
+            $table->foreignId('permission_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->engine = 'InnoDB';
         });
@@ -28,6 +29,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('action_permission');
     }
 }

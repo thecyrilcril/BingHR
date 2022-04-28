@@ -3,8 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Role;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Permission;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
@@ -17,7 +18,8 @@ class UserFactory extends Factory
     {
         return [
             // 'role_id' => Role::factory()->create(),
-            'role_id' => Role::all()->random()->id,
+            'role_id' => Role::all()->random(),
+            'permission_id' => Permission::all()->random(),
             'employee_id' => $this->faker->randomNumber(5, true),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
