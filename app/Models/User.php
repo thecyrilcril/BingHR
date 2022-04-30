@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use HiFolks\RandoPhp\Randomize;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,12 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public static function booted()
+    {
+        static::creating(function(User $user) {
+            $user->employee_id = Randomize::chars(5)->numeric()->generate();
+        });
     }
 }
