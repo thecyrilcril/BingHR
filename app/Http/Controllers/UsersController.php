@@ -44,7 +44,24 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        //
+        try {
+
+            return new \Illuminate\Http\JsonResponse([
+                'user' => [
+                    'id' => $user->id,
+                    'permission_id' => $user->permission_id,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'email' => $user->email,
+                    'mobile_number' => $user->mobile_number,
+                    'role_id' => $user->role_id,
+                    'user_name' => $user->user_name,
+                ]
+            ], \Symfony\Component\HttpFoundation\Response::HTTP_OK);
+
+        } catch (\Exception $e) {
+            return new \Illuminate\Http\JsonResponse('', \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
