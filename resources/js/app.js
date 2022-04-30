@@ -4,6 +4,7 @@ import 'flowbite'
 import Toast from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import Index from './components/Index'
+import 'nprogress/nprogress.css'
 
 const toastOptions = {
     toastClassName: 'binghr',

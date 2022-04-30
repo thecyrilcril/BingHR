@@ -30,6 +30,7 @@
     "dependencies": {
         "@headlessui/vue": "^1.6.0",
         "@heroicons/vue": "^1.0.6",
-        "flowbite": "^1.4.3"
+        "flowbite": "^1.4.3",
+        "nprogress": "^0.2.0"
     }
 }

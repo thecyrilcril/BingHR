@@ -424,6 +424,8 @@ import { reactive, toRefs, ref, onBeforeMount, defineAsyncComponent, nextTick, c
 import { SearchIcon, ChatIcon, DocumentIcon, AdjustmentsIcon, UsersIcon, CollectionIcon, UserGroupIcon, LightningBoltIcon, SunIcon, CalendarIcon, UserIcon, CreditCardIcon, DocumentReportIcon, ChevronDownIcon, PencilAltIcon, TrashIcon, CogIcon, MenuAlt2Icon  } from '@heroicons/vue/outline'
 import {  MailIcon, BellIcon, UserIcon as SolidUserIcon } from '@heroicons/vue/solid'
 import { useToast } from 'vue-toastification'
+import Nprogress from 'nprogress'
+
 export default {
 
   name: 'Index',
@@ -511,24 +513,34 @@ export default {
         state.user.permissions_rights.delete(event.target.value),
 
       updatePermissions: async (event) => {
+        Nprogress.start()
+
         const permission_id = event.target.dataset.permissionId
         const action_type = (event.target.checked) ? 'checked' : 'unchecked'
         const action_id =  event.target.value
         if (!permission_id || !action_id) {
+          Nprogress.done()
+
           return
         }
         const response = await axios.patch(`/api/permissions/${permission_id}`, { action_id, action_type  })
         state.refreshPermissions()
+        Nprogress.done()
+
       },
 
       addUser: async () => {
+        Nprogress.start()
         try {
           const response = await axios.post('/api/users', state.user)
           state.refreshUserList()
           state.toggleModal('toggle-add-modal')
           toast.success('User Added')
+          Nprogress.done()
+
 
         } catch(error) {
+          Nprogress.done()
           toast.error('There was an error')
           if (error.response && error.response.status == 422) {
             return state.validationErrors(error)
@@ -537,14 +549,18 @@ export default {
       },
 
       updateUser: async (user_id) => {
+        Nprogress.start()
         try {
           state.user.id = user_id
           const response = await axios.patch(`/api/users/${user_id}`, state.user)
           state.refreshUserList()
           state.toggleModal('toggle-update-modal')
           toast.success('User Updated')
+          Nprogress.done()
+
 
         } catch(error) {
+          Nprogress.done()
           toast.error('There was an error')
           if (error.response && error.response.status == 422) {
             return state.validationErrors(error)
@@ -554,6 +570,7 @@ export default {
       },
 
       fetchUserData: async (user_id) => {
+        Nprogress.start()
         try {
           const response = await axios.get(`/api/users/${user_id}`)
           const { user } = response.data
@@ -570,9 +587,11 @@ export default {
 
           state.toggleModal('toggle-update-modal')
 
+          Nprogress.done()
 
 
         } catch (error) {
+          Nprogress.done()
           toast.error('There was an error')
         }
 
@@ -587,12 +606,18 @@ export default {
       },
 
       deleteUser: async (id) => {
+        Nprogress.start()
         state.showConfirmBox = false
         try {
           const response = await axios.delete(`/api/users/${id}`)
           state.refreshUserList()
           toast.success('User deleted')
+          Nprogress.done()
+
         } catch(error) {
+          Nprogress.done()
+          toast.error('There was an error')
+
 
         }
       },
@@ -623,6 +648,7 @@ export default {
     })
 
     onBeforeMount( async () => {
+      Nprogress.start()
       // fire off all initial requests
       const requests = [
         axios.get('/api/users'),
@@ -641,6 +667,7 @@ export default {
       state.roles = roles
       state.permissions = permissions
       state.actions = actions
+      Nprogress.done()
 
     })
     return { ...toRefs(state) }
