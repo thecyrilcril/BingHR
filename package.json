@@ -10,6 +10,10 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tailwindcss/forms": "^0.5.0",
+        "@tailwindcss/line-clamp": "^0.4.0",
+        "@tailwindcss/typography": "^0.5.2",
         "@vue/compiler-sfc": "^3.2.33",
         "autoprefixer": "^10.4.5",
         "axios": "^0.21",
@@ -20,7 +24,8 @@
         "postcss": "^8.4.12",
         "tailwindcss": "^3.0.24",
         "vue": "^3.2.31",
-        "vue-loader": "^17.0.0"
+        "vue-loader": "^17.0.0",
+        "vue-toastification": "^2.0.0-rc.5"
     },
     "dependencies": {
         "@headlessui/vue": "^1.6.0",
