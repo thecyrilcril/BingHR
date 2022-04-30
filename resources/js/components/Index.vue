@@ -545,6 +545,7 @@ export default {
           toast.success('User Added')
           Nprogress.done()
           clearObject(state.user)
+          clearObject(state.formErrors)
 
 
         } catch(error) {
@@ -566,6 +567,7 @@ export default {
           toast.success('User Updated')
           Nprogress.done()
           clearObject(state.user)
+          clearObject(state.formErrors)
 
 
         } catch(error) {
