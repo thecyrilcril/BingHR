@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.Vue-Toastification__toast.binghr {
+    @apply font-sans tracking-wide text-sm;
+}
+
+.Vue-Toastification__toast--success.binghr {
+    @apply bg-green-600 font-light;
+}
+
+.Vue-Toastification__toast--warning.binghr {
+    @apply bg-yellow-600 font-light;
+}
+
+.Vue-Toastification__toast--error.binghr {
+    @apply bg-red-600 font-light;
+}
+
+.Vue-Toastification__toast--info.binghr {
+    @apply bg-blue-600 font-light;
+}
