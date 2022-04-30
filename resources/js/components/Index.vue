@@ -27,13 +27,11 @@
                     <div class="px-4 py-5 bg-white sm:p-6">
                       <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-6">
-                          <!-- <label for="email-address" class="block text-sm font-medium text-gray-700"></label> -->
                           <input v-model="user.employee_id" type="text" name="employee_id" readonly class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Employee ID*" />
                           <span></span>
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
-                          <!-- <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label> -->
                           <input v-model="user.first_name" type="text" name="first_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="First name*" />
                           <span class="block h-5">
                             <span v-show="formErrors.first_name" class="text-sm text-indigo-800">{{ formErrors.first_name }}</span>
@@ -41,7 +39,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
-                          <!-- <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label> -->
                           <input v-model="user.last_name" type="text" name="last_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Last name*" />
                           <span class="block h-5">
                             <span v-show="formErrors.last_name" class="text-sm text-indigo-800">{{ formErrors.last_name }}</span>
@@ -49,7 +46,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-2">
-                          <!-- <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label> -->
                           <input v-model="user.email" type="text" name="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Email ID *"/>
                           <span class="block h-5">
                             <span v-show="formErrors.email" class="text-sm text-indigo-800">{{ formErrors.email }}</span>
@@ -57,7 +53,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-2">
-                          <!-- <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label> -->
                           <input v-model="user.mobile_number" type="text" name="mobile_number" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Mobile No *" />
                           <span class="block h-5">
                             <span v-show="formErrors.mobile_number" class="text-sm text-indigo-800">{{ formErrors.mobile_number }}</span>
@@ -65,7 +60,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-2">
-                          <!-- <label for="country" class="block text-sm font-medium text-gray-700">Country</label> -->
                           <select v-model="user.role_id" name="role_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option :value="null" disabled selected>Select Role Type</option>
                             <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.title }}</option>
@@ -76,7 +70,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                          <!-- <label for="city" class="block text-sm font-medium text-gray-700">City</label> -->
                           <input v-model="user.user_name" type="text" name="user_name" autocomplete="username" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Username *" />
                           <span class="block h-5">
                             <span v-show="formErrors.user_name" class="text-sm text-indigo-800">{{ formErrors.user_name }}</span>
@@ -84,7 +77,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <!-- <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label> -->
                           <input v-model="user.password" type="password" name="password" autocomplete="new-password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Password *"/>
                           <span class="block h-5">
                             <span v-show="formErrors.password" class="text-sm text-indigo-800">{{ formErrors.password }}</span>
@@ -92,7 +84,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <!-- <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label> -->
                           <input v-model="user.password_confirmation" type="password" name="confirm_password" autocomplete="new-password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Confirm Password *" />
                         </div>
                       </div>
@@ -177,17 +168,14 @@
               <!-- Modal body -->
               <div class="p-6 space-y-6">
                 <form action="#" method="POST" autocomplete="off">
-                  <!-- <div class="shadow overflow-hidden sm:rounded-md"> -->
                     <div class="px-4 py-5 bg-white sm:p-6">
                       <div class="grid grid-cols-6 gap-6">
                         <div class="col-span-6 sm:col-span-6">
-                          <!-- <label for="email-address" class="block text-sm font-medium text-gray-700"></label> -->
                           <input v-model="user.employee_id" type="text" name="employee_id" readonly class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Employee ID*" />
                           <span></span>
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
-                          <!-- <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label> -->
                           <input v-model="user.first_name" type="text" name="first_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="First name*" />
                           <span class="block h-5">
                             <span v-show="formErrors.first_name" class="text-sm text-indigo-800">{{ formErrors.first_name }}</span>
@@ -195,7 +183,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3">
-                          <!-- <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label> -->
                           <input v-model="user.last_name" type="text" name="last_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Last name*" />
                           <span class="block h-5">
                             <span v-show="formErrors.last_name" class="text-sm text-indigo-800">{{ formErrors.last_name }}</span>
@@ -203,7 +190,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-2">
-                          <!-- <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label> -->
                           <input v-model="user.email" type="text" name="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Email ID *"/>
                           <span class="block h-5">
                             <span v-show="formErrors.email" class="text-sm text-indigo-800">{{ formErrors.email }}</span>
@@ -211,7 +197,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-2">
-                          <!-- <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label> -->
                           <input v-model="user.mobile_number" type="text" name="mobile_number" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Mobile No *" />
                           <span class="block h-5">
                             <span v-show="formErrors.mobile_number" class="text-sm text-indigo-800">{{ formErrors.mobile_number }}</span>
@@ -219,7 +204,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-2">
-                          <!-- <label for="country" class="block text-sm font-medium text-gray-700">Country</label> -->
                           <select v-model="user.role_id" name="role_id" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option :value="null" disabled selected>Select Role Type</option>
                             <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.title }}</option>
@@ -230,7 +214,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                          <!-- <label for="city" class="block text-sm font-medium text-gray-700">City</label> -->
                           <input v-model="user.user_name" type="text" name="user_name" autocomplete="username" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Username *" />
                           <span class="block h-5">
                             <span v-show="formErrors.user_name" class="text-sm text-indigo-800">{{ formErrors.user_name }}</span>
@@ -238,7 +221,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <!-- <label for="region" class="block text-sm font-medium text-gray-700">State / Province</label> -->
                           <input v-model="user.password" type="password" name="password" autocomplete="new-password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Password *"/>
                           <span class="block h-5">
                             <span v-show="formErrors.password" class="text-sm text-indigo-800">{{ formErrors.password }}</span>
@@ -246,7 +228,6 @@
                         </div>
 
                         <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                          <!-- <label for="postal-code" class="block text-sm font-medium text-gray-700">ZIP / Postal code</label> -->
                           <input v-model="user.password_confirmation" type="password" name="confirm_password" autocomplete="new-password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" placeholder="Confirm Password *" />
                         </div>
                       </div>
@@ -313,9 +294,6 @@
       </div>
   </div>
 
-
-
-  <!-- <AddUser /> -->
   <div class="flex h-screen">
     <div class="bg-blue-500 w-12 flex flex-col text-gray-200 justify-between pt-20 pb-10">
       <div class="flex flex-col space-y-10 items-center">
@@ -408,7 +386,6 @@
             <tr v-for="user, index in users" :key="user.email" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                 <img :src="`https://i.pravatar.cc/25${index}`"  class="w-12 h-12 rounded-full mr-2" alt="user.fullname">
-                <!-- <img :src="`https://xsgames.co/randomusers/assets/avatars/female/2${index}.jpg`"  class="w-12 h-12 rounded-full mr-2" alt="user.fullname"> -->
                 <div class="flex flex-col">
                   <span class="font-bold">{{ user.fullname }}</span>
                   <span class="text-gray-500">{{ user.email }}</span>
@@ -522,20 +499,6 @@ export default {
       },
       currentlyUpdating: null,
       filteredPermissions: computed(() => state.permissions.filter(permission => permission.id == state.user.permission_id)),
-      permissionsWithColors: computed(() => state.permissions.map(permission => {
-        const color = {
-          'Super Admin': 'bg-red-600',
-          'Admin': 'bg-blue-600',
-          'HR Admin': 'bg-green-600',
-          'Employee': 'bg-gray-600',
-        }
-        return {
-          id: permission.id,
-          name: permission.name,
-          action: permission.actions,
-          color: color[permission.name],
-        }
-      })),
       check: (evt) => {
         const event = evt
         nextTick(() => (evt.target.checked) ? state.user.permission_id = evt.target.value : null)
@@ -693,9 +656,3 @@ export default {
 
 }
 </script>
-
-<style lang="css" scoped>
-a.link-active {
-    @apply text-blue-500 border-r-2 border-blue-500;
-}
-</style>
