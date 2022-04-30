@@ -25,9 +25,15 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\UserRequest $request)
     {
-        //
+        try {
+            $user = \App\Models\User::create($request->validated());
+            return new \Illuminate\Http\JsonResponse('user created', \Symfony\Component\HttpFoundation\Response::HTTP_CREATED);
+
+        } catch(\Exception $e) {
+            return new \Illuminate\Http\JsonResponse($e->getMessage(), \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
