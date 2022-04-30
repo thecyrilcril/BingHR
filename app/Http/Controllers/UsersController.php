@@ -91,6 +91,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return new \Illuminate\Http\JsonResponse('user deleted', \Symfony\Component\HttpFoundation\Response::HTTP_OK);
     }
 }
