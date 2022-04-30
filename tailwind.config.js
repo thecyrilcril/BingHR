@@ -6,9 +6,20 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+        'width': 'width',
+      }
+    },
+  },
+  corePlugins: {
+    aspectRatio: false,
   },
   plugins: [
     require('flowbite/plugin'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 }
