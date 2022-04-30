@@ -24,7 +24,8 @@ class UpdatePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'action' => 'required|numeric'
+            'action_id' => 'required|numeric',
+            'action_type' => 'required|string'
         ];
     }
 }

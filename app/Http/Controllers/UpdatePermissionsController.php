@@ -16,7 +16,15 @@ class UpdatePermissionsController extends Controller
     public function __invoke(\App\Http\Requests\UpdatePermissionRequest $request, Permission $permission)
     {
         try {
-            $permission->actions()->sync([$request->validated()['action']], false);
+            if ( $request->validated()['action_type'] == 'checked' ) {
+                $permission->actions()->sync([$request->validated()['action_id']], false);
+
+            }
+
+            if ( $request->validated()['action_type'] == 'unchecked' ) {
+                $permission->actions()->detach($request->validated()['action_id']);
+
+            }
             return new \Illuminate\Http\JsonResponse('', \Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT);
         } catch(\Exception $e) {
             return new \Illuminate\Http\JsonResponse('error', \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);

@@ -124,7 +124,7 @@
                       </th>
                         <td v-for="action in permission.actions" :key="action.id" class="px-6 py-4">
                           <label class="inline-flex items-center">
-                            <input type="checkbox" class="
+                            <input @change="updatePermissions" :data-permission-id="permission.id" type="checkbox" class="
                               rounded
                               border-gray-300
                               text-indigo-600
@@ -134,7 +134,7 @@
                               focus:ring-offset-0
                               focus:ring-indigo-200
                               focus:ring-opacity-50
-                            " :checked="action.active">
+                            " :checked="action.active" :value="action.id">
                         </label>
                         </td>
                     </tr>
@@ -512,11 +512,12 @@ export default {
 
       updatePermissions: async (event) => {
         const permission_id = event.target.dataset.permissionId
-        const action_id = (event.target.checked) ? event.target.value : null
+        const action_type = (event.target.checked) ? 'checked' : 'unchecked'
+        const action_id =  event.target.value
         if (!permission_id || !action_id) {
           return
         }
-        const response = await axios.patch(`/api/permissions/${permission_id}`, { action: action_id })
+        const response = await axios.patch(`/api/permissions/${permission_id}`, { action_id, action_type  })
       },
 
       addUser: async () => {
