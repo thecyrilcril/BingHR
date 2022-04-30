@@ -15132,31 +15132,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       },
       updatePermissions: function () {
         var _updatePermissions = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(event) {
-          var permission_id, action_id, response;
+          var permission_id, action_type, action_id, response;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
                   permission_id = event.target.dataset.permissionId;
-                  action_id = event.target.checked ? event.target.value : null;
+                  action_type = event.target.checked ? 'checked' : 'unchecked';
+                  action_id = event.target.value;
 
                   if (!(!permission_id || !action_id)) {
-                    _context.next = 4;
+                    _context.next = 5;
                     break;
                   }
 
                   return _context.abrupt("return");
 
-                case 4:
-                  _context.next = 6;
+                case 5:
+                  _context.next = 7;
                   return axios.patch("/api/permissions/".concat(permission_id), {
-                    action: action_id
+                    action_id: action_id,
+                    action_type: action_type
                   });
 
-                case 6:
-                  response = _context.sent;
-
                 case 7:
+                  response = _context.sent;
+                  state.refreshPermissions();
+
+                case 9:
                 case "end":
                   return _context.stop();
               }
@@ -15361,7 +15364,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               switch (_context6.prev = _context6.next) {
                 case 0:
                   _context6.next = 2;
-                  return axios.get('/api/users', state.user);
+                  return axios.get('/api/users');
 
                 case 2:
                   response = _context6.sent;
@@ -15381,6 +15384,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
 
         return refreshUserList;
+      }(),
+      refreshPermissions: function () {
+        var _refreshPermissions = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+          var response, permissions;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+            while (1) {
+              switch (_context7.prev = _context7.next) {
+                case 0:
+                  _context7.next = 2;
+                  return axios.get('/api/permissions');
+
+                case 2:
+                  response = _context7.sent;
+                  permissions = response.data;
+                  state.permissions = permissions;
+
+                case 5:
+                case "end":
+                  return _context7.stop();
+              }
+            }
+          }, _callee7);
+        }));
+
+        function refreshPermissions() {
+          return _refreshPermissions.apply(this, arguments);
+        }
+
+        return refreshPermissions;
       }(),
       validationErrors: function validationErrors(error) {
         var _error$response$data$ = error.response.data.errors,
@@ -15402,23 +15434,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         state.formErrors.permission_id = permission_id ? permission_id.toString() : null;
       }
     });
-    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onBeforeMount)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7() {
+    (0,vue__WEBPACK_IMPORTED_MODULE_1__.onBeforeMount)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8() {
       var requests, allPromises, all, _all, usersResponse, rolesResponse, permissionsResponse, actionsResponse, _usersResponse$data, links, meta, users, roles, permissions, actions;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
               // fire off all initial requests
               requests = [axios.get('/api/users'), axios.get('/api/roles'), axios.get('/api/permissions'), axios.get('/api/actions')];
               allPromises = requests.map(function (request) {
                 return request;
               });
-              _context7.next = 4;
+              _context8.next = 4;
               return Promise.all(allPromises);
 
             case 4:
-              all = _context7.sent;
+              all = _context8.sent;
               _all = _slicedToArray(all, 4), usersResponse = _all[0], rolesResponse = _all[1], permissionsResponse = _all[2], actionsResponse = _all[3];
               _usersResponse$data = usersResponse.data, links = _usersResponse$data.links, meta = _usersResponse$data.meta, users = _usersResponse$data.users;
               roles = rolesResponse.data;
@@ -15431,10 +15463,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
             case 14:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
         }
-      }, _callee7);
+      }, _callee8);
     })));
     return _objectSpread({}, (0,vue__WEBPACK_IMPORTED_MODULE_1__.toRefs)(state));
   },
@@ -15614,7 +15646,7 @@ var _hoisted_36 = {
 var _hoisted_37 = {
   "class": "inline-flex items-center"
 };
-var _hoisted_38 = ["checked"];
+var _hoisted_38 = ["data-permission-id", "checked", "value"];
 var _hoisted_39 = {
   "class": "flex justify-end items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600"
 };
@@ -16217,11 +16249,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         key: action.id,
         "class": "px-6 py-4"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        onChange: _cache[11] || (_cache[11] = function () {
+          return _ctx.updatePermissions && _ctx.updatePermissions.apply(_ctx, arguments);
+        }),
+        "data-permission-id": permission.id,
         type: "checkbox",
         "class": "rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50",
-        checked: action.active
-      }, null, 8
-      /* PROPS */
+        checked: action.active,
+        value: action.id
+      }, null, 40
+      /* PROPS, HYDRATE_EVENTS */
       , _hoisted_38)])]);
     }), 128
     /* KEYED_FRAGMENT */
@@ -16229,13 +16266,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128
   /* KEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal footer "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_39, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[11] || (_cache[11] = function ($event) {
+    onClick: _cache[12] || (_cache[12] = function ($event) {
       return _ctx.updateUser(_ctx.currentlyUpdating);
     }),
     type: "button",
     "class": "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
   }, "Update User"), _hoisted_40])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Add User Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_41, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_42, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_43, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal header "), _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_49, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
+    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
       return _ctx.user.employee_id = $event;
     }),
     type: "text",
@@ -16246,7 +16283,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.user.employee_id]]), _hoisted_50]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
       return _ctx.user.first_name = $event;
     }),
     type: "text",
@@ -16260,7 +16297,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.first_name), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.first_name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
+    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
       return _ctx.user.last_name = $event;
     }),
     type: "text",
@@ -16274,7 +16311,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.last_name), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.last_name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_55, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
+    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
       return _ctx.user.email = $event;
     }),
     type: "text",
@@ -16288,7 +16325,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.email), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.email]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_57, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
+    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
       return _ctx.user.mobile_number = $event;
     }),
     type: "text",
@@ -16302,7 +16339,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.mobile_number), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.mobile_number]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_59, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    "onUpdate:modelValue": _cache[17] || (_cache[17] = function ($event) {
+    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
       return _ctx.user.role_id = $event;
     }),
     name: "role_id",
@@ -16323,7 +16360,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.role_id), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.role_id]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_63, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+    "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
       return _ctx.user.user_name = $event;
     }),
     type: "text",
@@ -16338,7 +16375,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.user_name), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.user_name]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[19] || (_cache[19] = function ($event) {
+    "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
       return _ctx.user.password = $event;
     }),
     type: "password",
@@ -16353,7 +16390,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.formErrors.password), 513
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, _ctx.formErrors.password]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_67, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[20] || (_cache[20] = function ($event) {
+    "onUpdate:modelValue": _cache[21] || (_cache[21] = function ($event) {
       return _ctx.user.password_confirmation = $event;
     }),
     type: "password",
@@ -16368,7 +16405,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: permission.id,
       "class": "inline-flex items-center"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-      onChange: _cache[21] || (_cache[21] = function () {
+      onChange: _cache[22] || (_cache[22] = function () {
         return _ctx.check && _ctx.check.apply(_ctx, arguments);
       }),
       "class": "form-radio",
@@ -16397,7 +16434,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         key: action.id,
         "class": "px-6 py-4"
       }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-        onChange: _cache[22] || (_cache[22] = function () {
+        onChange: _cache[23] || (_cache[23] = function () {
           return _ctx.updatePermissions && _ctx.updatePermissions.apply(_ctx, arguments);
         }),
         "data-permission-id": permission.id,
@@ -16414,7 +16451,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128
   /* KEYED_FRAGMENT */
   ))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal footer "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_78, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[23] || (_cache[23] = function () {
+    onClick: _cache[24] || (_cache[24] = function () {
       return _ctx.addUser && _ctx.addUser.apply(_ctx, arguments);
     }),
     type: "button",
@@ -16438,7 +16475,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 8
   /* PROPS */
   , _hoisted_91)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    onClick: _cache[24] || (_cache[24] = function () {
+    onClick: _cache[25] || (_cache[25] = function () {
       return $options.toggleMenu && $options.toggleMenu.apply($options, arguments);
     })
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MenuAlt2Icon, {
