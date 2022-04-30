@@ -22,14 +22,14 @@ The web app allows you:
 4. create an ```.env``` file in the root directory and copy the contents of ```.env.example``` into it, alternatively run ```cp .env.example .env``` from your CLI
 5. change all DB_~ configurations in the newly created .env file to the required values for your machine
 6. Create a database with the value of ```DB_DATABASE``` environment variable(.env) as its name.
-7. run ```php artisan migrate:fresh --seed``` in you CLI
+7. run ```php artisan migrate:fresh --seed``` in you CLI to seed the database with sample users, roles and permissions
 8. (Optional) Use ```BingHR``` directory as the DocumentRoot of the virtual host(http://binghr.test)
 9. run ```npm install``` to intall all javascript dependencies.
-10. run ```php artisan key:generate```
-11. run ```npm run dev``` to compile all your assets.
+10. run ```php artisan key:generate``` to generate an encryption key for the application
+11. run ```npm run dev``` to compile all assets.
 12. run ``` php artisan serve``` to start the application.
 
 ## Final Notes
 - The hamburger(menu) icon in the bottom-left expands or collapses the menu
-- The permission rights at the bottom each forms are submitted as soon as the check boxes are checked or unchecked, the submit buttons only submit the form above it.
-- The permission / Rights association are also global as permissions are shared across multiple users.
+- The permission rights at the bottom each modal are submitted as soon as the check boxes are checked or unchecked, the submit button submits the form above it.
+- The permissions and association rights are also global(permission rights are shared across all users).
