@@ -5,6 +5,7 @@
     @confirm="confirmAction"
     @cancel="showConfirmBox = false"
   />
+  <button id="toggle-add-modal" class="hidden bg-green-600 text-green-50 rounded-lg px-4 py-2" type="button" data-modal-toggle="add-user-modal">Add User</button>
   <button id="toggle-update-modal" class="hidden bg-green-600 text-green-50 rounded-lg px-4 py-2" type="button" data-modal-toggle="update-user-modal">Update User</button>
   <!-- Update User Modal -->
   <div id="update-user-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
@@ -354,7 +355,7 @@
         </div>
       </div>
       <div class="flex justify-end px-6 my-4">
-        <button id="toggle-add-modal" class="bg-green-600 text-green-50 rounded-lg px-4 py-2" type="button" data-modal-toggle="add-user-modal">Add User</button>
+        <button @click="showAddUserModal('toggle-add-modal')" class="bg-green-600 text-green-50 rounded-lg px-4 py-2" type="button">Add User</button>
       </div>
       <div class="relative overflow-x-auto sm:rounded-lg px-6">
         <div class="bg-blue-50 px-6 flex justify-between items-center py-2">
@@ -425,6 +426,7 @@ import { SearchIcon, ChatIcon, DocumentIcon, AdjustmentsIcon, UsersIcon, Collect
 import {  MailIcon, BellIcon, UserIcon as SolidUserIcon } from '@heroicons/vue/solid'
 import { useToast } from 'vue-toastification'
 import Nprogress from 'nprogress'
+import { clearObject } from '../Helpers'
 
 export default {
 
@@ -508,6 +510,11 @@ export default {
 
       toggleModal: (domID) => document.getElementById(domID).click(),
 
+      showAddUserModal: (domID) => {
+        clearObject(state.user)
+        state.toggleModal(domID)
+      },
+
       preparePermissionRights: (event) => (event.target.checked) ?
         state.user.permissions_rights.add(event.target.value) :
         state.user.permissions_rights.delete(event.target.value),
@@ -537,6 +544,7 @@ export default {
           state.toggleModal('toggle-add-modal')
           toast.success('User Added')
           Nprogress.done()
+          clearObject(state.user)
 
 
         } catch(error) {
@@ -557,6 +565,7 @@ export default {
           state.toggleModal('toggle-update-modal')
           toast.success('User Updated')
           Nprogress.done()
+          clearObject(state.user)
 
 
         } catch(error) {
