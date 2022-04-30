@@ -19,3 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/users', \App\Http\Controllers\UsersController::class);
+Route::get('/roles', \App\Http\Controllers\RolesController::class);
+Route::get('/permissions', \App\Http\Controllers\PermissionsController::class);
+Route::get('/actions', \App\Http\Controllers\ActionsController::class);
+Route::patch('/permissions/{permission}', \App\Http\Controllers\UpdatePermissionsController::class);
