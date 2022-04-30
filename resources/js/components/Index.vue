@@ -518,6 +518,7 @@ export default {
           return
         }
         const response = await axios.patch(`/api/permissions/${permission_id}`, { action_id, action_type  })
+        state.refreshPermissions()
       },
 
       addUser: async () => {
@@ -597,9 +598,15 @@ export default {
       },
 
       refreshUserList: async () => {
-        const response = await axios.get('/api/users', state.user)
+        const response = await axios.get('/api/users')
         const { links, meta, users } = response.data
         state.users = users
+      },
+
+      refreshPermissions: async () => {
+        const response = await axios.get('/api/permissions')
+        const permissions = response.data
+        state.permissions = permissions
       },
 
       validationErrors: (error) => {
