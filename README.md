@@ -30,6 +30,6 @@ The web app allows you:
 12. run ``` php artisan serve``` to start the application.
 
 ## Final Notes
-- The hamburger(menu) icon in the bottom let expands or collapses the menu
+- The hamburger(menu) icon in the bottom-left expands or collapses the menu
 - The permission rights at the bottom of both of each forms are submitted as soon as the checkboxes are checked, the submit buttons only submit the form above it.
 - The permission / Rights association are also global as permissions are shared across multiple users.
