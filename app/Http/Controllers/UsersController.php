@@ -71,9 +71,16 @@ class UsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(\App\Http\Requests\UpdateUserRequest $request, User $user)
     {
-        //
+        try {
+
+            $user->update($request->validated());
+            return new \Illuminate\Http\JsonResponse('', \Symfony\Component\HttpFoundation\Response::HTTP_NO_CONTENT);
+
+        } catch(\Exception $e) {
+            return new \Illuminate\Http\JsonResponse('error', \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
     }
 
     /**
