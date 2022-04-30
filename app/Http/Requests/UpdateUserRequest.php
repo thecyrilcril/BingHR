@@ -25,8 +25,9 @@ class UpdateUserRequest extends FormRequest
          */
         public function rules()
         {
-            $user = \App\Models\User::where('email', $this->email)->firstOrFail();
+            $user = \App\Models\User::where('id', $this->id)->firstOrFail();
             return [
+                'id' => 'sometimes',
                 'first_name' => 'required|alpha|between:3, 20',
                 'last_name' => 'required|alpha|between:3, 20',
                 'email' => ['required', 'email', Rule::unique('users')->ignore($user->id), 'email'],

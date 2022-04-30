@@ -536,6 +536,7 @@ export default {
 
       updateUser: async (user_id) => {
         try {
+          state.user.id = user_id
           const response = await axios.patch(`/api/users/${user_id}`, state.user)
           state.refreshUserList()
           state.toggleModal('toggle-update-modal')
