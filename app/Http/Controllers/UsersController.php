@@ -15,16 +15,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with('role', 'permission')->orderBy('id', 'desc');
-        return new \App\Http\Resources\UserCollection($users->cursorPaginate(10)->withQueryString());
-        // return new \Illuminate\Http\JsonResponse([
-        //     'id' => $user->id,
-        //     'fullname' => $user->fullname,
-        //     'email' => $user->email,
-        //     'permission' => $user->permission->name,
-        //     'created_date' => \Carbon\Carbon::parse($u->created_at)->timezone(config('timezone.timezone'))->isoFormat('MMM D, YYYY'),
-        //     'role' => $user->role->name
-        // ], Response::HTTP_OK);
+        $users = \App\Models\User::with('role', 'permission')->orderBy('id', 'desc');
+        return new \App\Http\Resources\UserCollection($users->cursorPaginate(7)->withQueryString());
     }
 
     /**

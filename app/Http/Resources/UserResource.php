@@ -16,7 +16,7 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'full_name' => $this->fullname,
+            'fullname' => $this->fullname,
             'email' => $this->email,
             'permission' => $this->permission->name,
             'created_date' => \Carbon\Carbon::parse($this->created_at)->timezone(config('timezone.timezone'))->isoFormat('MMM D, YYYY'),
